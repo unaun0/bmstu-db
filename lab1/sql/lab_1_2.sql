@@ -15,7 +15,7 @@ ALTER TABLE Delivery
 	ADD CONSTRAINT delivery_dateChange_check CHECK (dateChange <= NOW()),
 	
 	DROP CONSTRAINT IF EXISTS delivery_dateDelivery_check,
-	ADD CONSTRAINT delivery_dateDelivery_check CHECK (dateDelivery >= NOW()),
+	ADD CONSTRAINT delivery_dateDelivery_check CHECK (datedelivery >= datecreate AND datedelivery >= datechange),
 	
 	DROP CONSTRAINT IF EXISTS delivery_count_check,
 	ADD CONSTRAINT delivery_count_check CHECK (count > 0);
@@ -49,5 +49,6 @@ ALTER TABLE Purchase
 	ADD CONSTRAINT purchase_status_check CHECK (
 		status = 'В обработке' OR 
 		status = 'Отменен' OR 
-		status = 'Выполнен'
+		status = 'Выполнен' OR
+		status = 'Отправлен'
 	);
