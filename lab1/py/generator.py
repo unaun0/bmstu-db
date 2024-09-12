@@ -3,7 +3,7 @@ import random
 from faker import Faker
 from datetime import datetime, timedelta
 import os
-from namesBase import categoriesBase, productsBase
+from namesBase import reviewsBase, productsBase
 
 tablesFolderPath = os.getcwd() + '/tables'
 
@@ -43,6 +43,7 @@ class MarketDataGenerator:
             
         return clients
 
+    '''
     # Генерация данных для категорий
     def generateCategories(self, count):
         categories = []
@@ -62,6 +63,7 @@ class MarketDataGenerator:
                 )
             ])
         return categories
+    '''
 
     # Генерация данных для производителей
     def generateManufacturers(self, count):
@@ -106,6 +108,7 @@ class MarketDataGenerator:
             
         return stores
 
+    '''
     # Генерация данных для поставок
     def generateDeliveries(self, deliveriesCount, productsCount, storesCount):
         deliveries = []
@@ -130,6 +133,7 @@ class MarketDataGenerator:
             ])
             
         return deliveries
+    '''
 
     # Генерация данных для продуктов
     def generateProducts(self, productsCount, manufacturersCount, categoriesCount):
@@ -144,8 +148,7 @@ class MarketDataGenerator:
                 (self.fakeRU.random_element(productsBase) + ' ' + 
                 self.fakeEN.word() + ' ' + self.fakeEN.word()
                 ),
-                random.randint(1, manufacturersCount), 
-                random.randint(1, categoriesCount),
+                random.randint(1, manufacturersCount),
                 round(
                     random.uniform(1, 100000), 
                     2
@@ -182,6 +185,29 @@ class MarketDataGenerator:
             ])
             
         return purchases
+    
+    # Генерация данных для отзывов
+    def generateReviews(self, reviewsCount, clientsCount, productsCount):
+        reviews = []
+        for i in range(reviewsCount):
+            dateCreate = self.fakeRU.date_between_dates(
+                date_start=self.currentDate - timedelta(days=5*365), 
+                date_end=self.currentDate
+            )
+            reviews.append([
+                i + 1,  # ID отзыва
+                random.randint(1, productsCount),  # Случайный продукт
+                random.randint(1, clientsCount),   # Случайный клиент
+                random.randint(1, 5),  # Рейтинг от 1 до 5
+                self.fakeRU.sentence(nb_words=10),  # Случайный комментарий
+                dateCreate,  # Дата создания
+                self.fakeRU.date_between_dates(
+                    date_start=dateCreate, 
+                    date_end=self.currentDate,
+                )  # Дата изменения
+            ])
+            
+        return reviews
 
     # Запись данных в CSV файлы
     def writeToCsv(self, data, filename):
@@ -193,9 +219,8 @@ class MarketDataGenerator:
     def generate(self, count):
     # Генерация данных
         self.writeToCsv(self.generateClients(count), 'tables/clients.csv')
-        self.writeToCsv(self.generateCategories(count), 'tables/categories.csv')
         self.writeToCsv(self.generateManufacturers(count), 'tables/manufacturers.csv')
         self.writeToCsv(self.generateStores(count), 'tables/stores.csv')
-        self.writeToCsv(self.generateDeliveries(count, count, count), 'tables/deliveries.csv')
         self.writeToCsv(self.generateProducts(count, count, count), 'tables/products.csv')
         self.writeToCsv(self.generatePurchases(count, count, count, count), 'tables/purchases.csv')
+        self.writeToCsv(self.generateReviews(count, count, count), 'tables/reviews.csv')
