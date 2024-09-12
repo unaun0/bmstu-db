@@ -19,13 +19,12 @@ SELECT
     5,                          -- storeID
     1,                          -- clientID
     p.id,                       -- productID
-    (
-        SELECT MAX(d.count)
-        FROM Delivery d
-        WHERE d.storeID = 5
-    ),                          -- productCount
+    1,                          -- productCount
     'В обработке',              -- status
     CURRENT_DATE,               -- dateCreate
     CURRENT_DATE                -- dateChange
 FROM Product p
 WHERE p.price < 100;
+
+select * from purchase
+where id > 1000;

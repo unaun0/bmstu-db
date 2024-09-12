@@ -1,4 +1,5 @@
 -- Инструкция UPDATE со скалярным подзапросом в предложении SET;
+
 UPDATE Product
 SET price = (
 	SELECT AVG(productCount)

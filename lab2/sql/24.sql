@@ -1,4 +1,5 @@
 -- Оконные функции;
+
 SELECT
     id,
     storeID,

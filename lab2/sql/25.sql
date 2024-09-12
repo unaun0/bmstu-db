@@ -10,10 +10,10 @@ WITH Duplicates AS (
 -- Удаление дубликатов с использованием ROW_NUMBER()
 UniqueRows AS (
     SELECT *,
-           ROW_NUMBER() OVER (PARTITION BY id, storeID, clientID, productID, productCount, status, dateCreate, dateChange ORDER BY id) AS row_num
+           ROW_NUMBER() OVER (PARTITION BY storeID, clientID, productID, productCount, status, dateCreate, dateChange ORDER BY id) AS row_num
     FROM Duplicates
 )
 
-SELECT id, storeID, clientID, productID, productCount, status, dateCreate, dateChange
+SELECT id, storeID, clientID, productID, productCount, status, dateCreate, dateChange, row_num
 FROM UniqueRows
-WHERE row_num = 1;
+WHERE row_num = 2;

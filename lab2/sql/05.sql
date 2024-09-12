@@ -1,9 +1,8 @@
 -- Инструкция SELECT, использующая предикат EXISTS с вложенным подзапросом;
--- Получить список выполненных заказов товаров, поставки которых были меньше 10 единиц;
-SELECT id, status 
-FROM purchase
-WHERE EXISTS (
-	SELECT * FROM delivery
-	WHERE productID = purchase.productID
-	AND count < 10 
-) AND status = 'Выполнен';
+
+select name, phone from client
+where exists(
+	select * from purchase
+	where clientID = client.id
+	and status LIKE 'Выполнен'
+);

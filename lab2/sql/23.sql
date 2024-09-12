@@ -1,31 +1,46 @@
 -- Рекурсивное обобщенное табличное выражение для поиска всех дочерних категорий
-WITH RECURSIVE ChildCategories AS (
-    -- Начальное условие: выбираем дочерние категории для определенной категории
-    SELECT
+
+-- Создание временной таблицы Category с иерархической структурой
+DROP TABLE if exists Category;
+CREATE TEMP TABLE Category (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255),
+    parentID INT,
+    dateCreate DATE,
+    dateChange DATE
+);
+
+-- Вставка тестовых данных в временную таблицу Category
+INSERT INTO Category (name, parentID, dateCreate, dateChange) VALUES
+('Electronics', NULL, CURRENT_DATE, CURRENT_DATE),
+('Computers', 1, CURRENT_DATE, CURRENT_DATE),
+('Laptops', 2, CURRENT_DATE, CURRENT_DATE),
+('Smartphones', 1, CURRENT_DATE, CURRENT_DATE),
+('Gaming Laptops', 3, CURRENT_DATE, CURRENT_DATE),
+('Ultrabooks', 3, CURRENT_DATE, CURRENT_DATE),
+('Android Phones', 4, CURRENT_DATE, CURRENT_DATE),
+('iPhones', 4, CURRENT_DATE, CURRENT_DATE);
+
+-- Рекурсивное CTE для поиска всех дочерних категорий
+WITH RECURSIVE CategoryHierarchy AS (
+    SELECT 
         id,
         name,
         parentID
-    FROM
+    FROM 
         Category
-    WHERE
-        id = 145 -- Начальная категория, для которой ищем дочерние категории
+    WHERE 
+        id = 1  -- ID начальной категории, для которой ищем дочерние
 
     UNION ALL
 
-    -- Рекурсивное членение: выбираем дочерние категории для каждой найденной категории
-    SELECT
+    SELECT 
         c.id,
         c.name,
         c.parentID
-    FROM
+    FROM 
         Category c
-    JOIN
-        ChildCategories cc ON c.parentID = cc.id
+    INNER JOIN 
+        CategoryHierarchy ch ON c.parentID = ch.id
 )
--- Основной запрос, использующий рекурсивное CTE
-SELECT
-    id,
-    name,
-    parentID
-FROM
-    ChildCategories;
+SELECT * FROM CategoryHierarchy;
