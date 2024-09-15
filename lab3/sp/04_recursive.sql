@@ -1,4 +1,4 @@
--- Рекурсивную хранимую процедуру или хранимую процедур с рекурсивным ОТВ
+-- Рекурсивная хранимая процедура
 
 DROP TABLE IF EXISTS ProductAnalog;
 CREATE TABLE ProductAnalog (
