@@ -1,4 +1,5 @@
 -- Скалярная функция
+
 CREATE OR REPLACE FUNCTION total_purchase_cost(p_id INT)
 RETURNS DECIMAL(10, 2) AS $$
 DECLARE

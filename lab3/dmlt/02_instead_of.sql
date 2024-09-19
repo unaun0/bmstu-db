@@ -21,22 +21,11 @@ BEGIN
         VALUES (NEW.name, NEW.manufacturerID, NEW.price, CURRENT_DATE, CURRENT_DATE);
         RETURN NEW;
     END IF;
-    
-    -- Обработка обновления
-    IF (TG_OP = 'UPDATE') THEN
-        UPDATE Product
-        SET name = NEW.name,
-            manufacturerID = NEW.manufacturerID,
-            price = NEW.price,
-            dateChange = CURRENT_DATE
-        WHERE id = OLD.id;
-        RETURN NEW;
-    END IF;
 END;
 $$;
 
 CREATE TRIGGER product_view_trigger
-INSTEAD OF INSERT OR UPDATE ON ProductView
+INSTEAD OF INSERT ON ProductView
 FOR EACH ROW
 EXECUTE FUNCTION handle_product_view_changes();
 

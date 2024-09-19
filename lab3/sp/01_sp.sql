@@ -16,5 +16,6 @@ BEGIN
 END;
 $$;
 
-CALL update_product_count(1, 2);
+CALL update_product_count(1, 5);
+
 
