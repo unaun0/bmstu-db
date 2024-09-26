@@ -13,14 +13,14 @@ CREATE TABLE ManufacturerCopy(
 -- chmod uog+w *.json
 COPY(
 	SELECT row_to_json(m) FROM Manufacturer m
-) TO '/Users/tsyar/Desktop/bmstu/bmstu-db/lab5/json/manufacturer.json';
+) TO '/Users/tsyar/Desktop/bmstu/bmstu-db/lab/lab_05/json/manufacturer.json';
 
 DROP TABLE IF EXISTS importJSON;
 CREATE TEMP TABLE importJSON(
     str json
 );
 
-COPY importJSON FROM '/Users/tsyar/Desktop/bmstu/bmstu-db/lab5/json/manufacturer.json';
+COPY importJSON FROM '/Users/tsyar/Desktop/bmstu/bmstu-db/lab/lab_05/json/manufacturer.json';
 
 
 INSERT INTO ManufacturerCopy (id, name, email, URL, dateCreate, dateChange)
@@ -36,18 +36,10 @@ FROM importJSON;
 SELECT * FROM ManufacturerCopy;
 
 ---
-WITH diff AS (
-    SELECT
-        COALESCE(mc.id, m.id) AS id,
-        mc.name AS name1,
-        m.name AS name2
-    FROM ManufacturerCopy mc
-    FULL OUTER JOIN Manufacturer m
-    ON mc.id = m.id
-    WHERE mc.name IS DISTINCT FROM m.name
-)
-SELECT COUNT(*) = 0 AS are_identical
-FROM diff;
+
+SELECT * FROM ManufacturerCopy mc
+FULL OUTER JOIN Manufacturer m ON m.id = mc.id
+WHERE m.id IS NULL OR mc.id IS NULL;
 
 
 

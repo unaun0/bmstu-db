@@ -12,4 +12,4 @@ AS $$
 		return False
 $$;
 
-SELECT id, is_active(status) from purchase;
+SELECT id, status, is_active(status) FROM purchase ORDER BY id;

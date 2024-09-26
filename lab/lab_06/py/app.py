@@ -26,6 +26,7 @@ class DatabaseApp:
                 port=port
             )
             self.cursor = self.conn.cursor()
+            self.conn.autocommit = True
         except Exception as e:
             print(f'Ошибка: {e}')
 
@@ -34,7 +35,7 @@ class DatabaseApp:
 
         self.cursor.execute(
             """
-            SELECT ROUND(AVG(productCount), 6) 
+            SELECT ROUND(AVG(productCount), 2) 
             FROM Purchase;
             """
         )
@@ -140,6 +141,7 @@ class DatabaseApp:
             headers = ["ID заказа", "Название проукта", "Название магазина", "Количество", "Статус", "Дата"]
             print('\n', tabulate(results, headers, tablefmt="simple"), '\n')
         except Exception as e:
+            self.conn.rollback()
             print(f'\n{RED}ERROR: {RESET}: {e}\n')
 
     def call_stored_procedure(self):
@@ -154,6 +156,7 @@ class DatabaseApp:
             self.conn.commit()
             print(f'\n{GREEN}INFO:{RESET} хранимая процедура выполнена.\n')
         except Exception as e:
+            self.conn.rollback()
             print(f'\n{RED}ERROR:{RESET} {e}\n')
 
     def call_system_function(self):
@@ -181,7 +184,7 @@ class DatabaseApp:
 
     def insert_data(self):
         """10. Выполнить вставку данных"""
-
+        self.create_table()
         pid = input(f'\n{YELLOW}Введите ID продукта: {RESET}')
         aid = input(f'{YELLOW}Введите ID продукта - аналога: {RESET}')
         try:
@@ -191,6 +194,7 @@ class DatabaseApp:
             self.conn.commit()
             print(f'{GREEN}INFO:{RESET} Данные вставлены.\n')
         except Exception as e:
+            self.conn.rollback()
             print(f'\n{RED}ERROR:{RESET} {e}\n')
 
     def close(self):
