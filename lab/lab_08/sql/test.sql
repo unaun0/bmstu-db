@@ -1,0 +1,2 @@
+SELECT * FROM store
+ORDER BY id DESC;
