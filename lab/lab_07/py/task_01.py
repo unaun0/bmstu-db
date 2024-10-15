@@ -23,8 +23,8 @@ manufacturers_data = Enumerable([{
     "name": item["name"],
     "email": item["email"],
     "URL": item["url"],
-    "dateCreate": datetime.strptime(item["datecreate"], '%Y-%m-%d').date(),
-    "dateChange": datetime.strptime(item["datechange"], '%Y-%m-%d').date()
+    "dateCreate": datetime.strptime(item["dateCreate"], '%Y-%m-%d').date(),
+    "dateChange": datetime.strptime(item["dateChange"], '%Y-%m-%d').date()
 } for item in manufacturers])
 
 def q1():
@@ -35,7 +35,7 @@ def q1():
         print(manufacturer)
 
 def q2():
-    # Выбор производителей, у которых dateCreate > 2020-01-01
+    # Выбор производителей, у которых dateCreate > 2024-01-01
     query2 = manufacturers_data.where(lambda x: x['dateCreate'] > datetime(2024, 1, 1).date())
 
     for manufacturer in query2:

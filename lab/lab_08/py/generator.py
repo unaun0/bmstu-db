@@ -66,7 +66,7 @@ def run_every_5_minutes(data_generator, count):
 
     while True:
         create_json_file(data_generator, count)
-        time.sleep(300)  # Пауза в 5 минут (300 секунд)
+        time.sleep(30)  # Пауза в 5 минут (300 секунд)
 
 if __name__ == "__main__":
     generator = DataGenerator()

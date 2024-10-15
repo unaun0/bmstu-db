@@ -1,2 +1,2 @@
-SELECT * FROM store
+SELECT * FROM Store
 ORDER BY id DESC;

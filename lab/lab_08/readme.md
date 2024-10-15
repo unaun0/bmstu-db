@@ -24,5 +24,11 @@ brew install nifi
 
 3. Открыть NiFi UI. Например, `https://localhost:8080/nifi`.
 
+```
+nifi start
+nifi stop
+nifi restart
+```
+
 4. Разработать NiFi flow.
 
