@@ -10,5 +10,5 @@
 | [**6**](https://github.com/unaun0/bmstu-db/tree/main/lab/lab_06)|✅|_27-09-2024_|
 | [**7**](https://github.com/unaun0/bmstu-db/tree/main/lab/lab_07)|✅|_03-10-2024_|
 | [**8**](https://github.com/unaun0/bmstu-db/tree/main/lab/lab_08)|✅|_03-10-2024_|
-| [**9**](https://github.com/unaun0/bmstu-db/tree/main/lab/lab_09)|🔄|_NULL_|
-| [**10**](https://github.com/unaun0/bmstu-db/tree/main/lab/lab_10)|❌|_NULL_|
+| [**9**](https://github.com/unaun0/bmstu-db/tree/main/lab/lab_09)|🔄|_24-10-2024_|
+| [**10**](https://github.com/unaun0/bmstu-db/tree/main/lab/lab_10)|✅|_17-10-2024_|
