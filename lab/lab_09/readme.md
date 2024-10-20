@@ -6,6 +6,7 @@ Redis используется в сценариях, где требуется 
 
 ```
 brew install redis
+brew services start redis
 ```
 
 2. Запустить  Redis.
