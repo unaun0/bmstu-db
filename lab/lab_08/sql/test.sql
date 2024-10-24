@@ -1,2 +1,0 @@
-SELECT * FROM Store
-ORDER BY id DESC;
